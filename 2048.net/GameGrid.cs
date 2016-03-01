@@ -2,14 +2,14 @@
 using System.Collections.Generic;
 using System.Linq;
 
-namespace _2048.net
+namespace DCCC
 {
-    public class Grid
+    public class GameGrid
     {
-        private Tile[,] _cells;
+        private GameTile[,] _cells;
         private int _size;
 
-        public Grid(int size, Grid previousState = null)
+        public GameGrid(int size, GameGrid previousState = null)
         {
             _size = size;
             _cells = null == previousState ? BuildEmpty() : BuildFromPreviousState(previousState);
@@ -36,18 +36,18 @@ namespace _2048.net
             return new CellPosition();
         }
 
-        public void InsertTile(Tile tile)
+        public void InsertTile(GameTile tile)
         {
             Cells[tile.Position.X, tile.Position.Y] = tile;
         }
 
-        public void RemoveTile(Tile tile)
+        public void RemoveTile(GameTile tile)
         {
             Cells[tile.Position.X, tile.Position.Y] = null;
         }
 
         // Call callback for every cell
-        public void EachCell(Action<int, int, Tile> callback)
+        public void EachCell(Action<int, int, GameTile> callback)
         {
             for (var x = 0; x < _size; x++)
             {
@@ -58,12 +58,12 @@ namespace _2048.net
             }
         }
 
-        public Tile CellContent(CellPosition position)
+        public GameTile CellContent(CellPosition position)
         {
             return CellContent(position.X, position.Y);
         }
 
-        public Tile CellContent(int x, int y)
+        public GameTile CellContent(int x, int y)
         {
             if (WithinBounds(x, y))
             {
@@ -91,10 +91,10 @@ namespace _2048.net
             return !CellOccupied(position);
         }
 
-        public Tile[,] Cells
+        public GameTile[,] Cells
         { get { throw new NotImplementedException(); } }
 
-        public Tile[,] BuildFromPreviousState(Grid state)
+        public GameTile[,] BuildFromPreviousState(GameGrid state)
         {
             var cells = BuildEmpty();
 
@@ -102,16 +102,16 @@ namespace _2048.net
                 for (var y = 0; y < _size; y++)
                 {
                     var tile = state.Cells[x, y];
-                    cells[x, y] = new Tile(tile.Position, tile.Value);
+                    cells[x, y] = new GameTile(tile.Position, tile.Value);
                 }
 
             return cells;
         }
 
         // Build a grid of the specified size
-        public Tile[,] BuildEmpty()
+        public GameTile[,] BuildEmpty()
         {
-            var cells = new Tile[_size, _size];
+            var cells = new GameTile[_size, _size];
 
             return cells;
         }

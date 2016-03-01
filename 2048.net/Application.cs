@@ -1,6 +1,6 @@
-﻿using _2048.net.Interfaces;
+﻿using DCCC.Interfaces;
 
-namespace _2048.net
+namespace DCCC
 {
     public class Application
     {

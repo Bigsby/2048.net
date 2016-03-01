@@ -1,4 +1,4 @@
-﻿namespace _2048.net.Interfaces
+﻿namespace DCCC.Interfaces
 {
     public interface ILocalStorageManager
     {
@@ -12,7 +12,7 @@
 
     public interface IGameState
     {
-        Grid Grid { get; set; }
+        GameGrid Grid { get; set; }
         uint Score { get; set; }
         bool Over { get; set; }
         bool Won { get; set; }

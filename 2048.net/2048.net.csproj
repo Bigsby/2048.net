@@ -8,7 +8,7 @@
     <ProjectGuid>{9DCACD2B-DBD0-447C-B173-9B554C09FA49}</ProjectGuid>
     <OutputType>Library</OutputType>
     <AppDesignerFolder>Properties</AppDesignerFolder>
-    <RootNamespace>_2048.net</RootNamespace>
+    <RootNamespace>DCCC</RootNamespace>
     <AssemblyName>2048.net</AssemblyName>
     <DefaultLanguage>en-US</DefaultLanguage>
     <FileAlignment>512</FileAlignment>
@@ -39,11 +39,11 @@
   <ItemGroup>
     <Compile Include="Application.cs" />
     <Compile Include="GameManager.cs" />
-    <Compile Include="Grid.cs" />
+    <Compile Include="GameGrid.cs" />
     <Compile Include="Interfaces\IInputManager.cs" />
     <Compile Include="Interfaces\ILocalStorageManager.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
-    <Compile Include="Tile.cs" />
+    <Compile Include="GameTile.cs" />
   </ItemGroup>
   <Import Project="$(MSBuildExtensionsPath32)\Microsoft\Portable\$(TargetFrameworkVersion)\Microsoft.Portable.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 

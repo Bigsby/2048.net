@@ -1,9 +1,9 @@
-﻿using _2048.net.Interfaces;
+﻿using DCCC.Interfaces;
 using System;
 using System.Collections.Generic;
 using System.Linq;
 
-namespace _2048.net
+namespace DCCC
 {
     internal class GameManager : IGameState
     {
@@ -14,7 +14,7 @@ namespace _2048.net
         //TODO: Allow for different values regardings grid size;
         private int _winingTileValue = 2048;
 
-        private Grid _grid;
+        private GameGrid _grid;
 
         public GameManager(int size, IInputManager inputManager, ILocalStorageManager localStorageManager)
         {
@@ -34,7 +34,7 @@ namespace _2048.net
         public bool Over { get; set; }
         public bool Won { get; set; }
         public bool KeepPlaying { get; set; }
-        public Grid Grid
+        public GameGrid Grid
         {
             get
             {
@@ -78,7 +78,7 @@ namespace _2048.net
             if (_grid.CellsAvailable())
             {
                 var value = (uint)(((double)(new Random().Next(0, 10000)) / 10000) < 0.9 ? 2 : 4);
-                var tile = new Tile(_grid.RandomAvailableCell(), value);
+                var tile = new GameTile(_grid.RandomAvailableCell(), value);
 
                 _grid.InsertTile(tile);
             }
@@ -96,7 +96,7 @@ namespace _2048.net
         {
             if (IsGameTerminated()) return; // Don't do anything if the game's over
 
-            Tile tile = null;
+            GameTile tile = null;
 
             var vector = GetVector(direction);
             var traversals = new Traversals(_size, vector);
@@ -121,7 +121,7 @@ namespace _2048.net
                         // Only one merger per row traversal?
                         if (null != next && next.Value == tile.Value && (null == next.MergedFrom))
                         {
-                            var merged = new Tile(positions.Next, tile.Value * 2);
+                            var merged = new GameTile(positions.Next, tile.Value * 2);
                             merged.MergedFrom = new MergeTile(tile, next);
 
                             _grid.InsertTile(merged);
@@ -161,7 +161,7 @@ namespace _2048.net
             }
         }
 
-        private void MoveTile(Tile tile, CellPosition cell)
+        private void MoveTile(GameTile tile, CellPosition cell)
         {
             _grid.Cells[tile.Position.X, tile.Position.Y] = null;
             _grid.Cells[cell.X, cell.Y] = tile;
@@ -186,7 +186,7 @@ namespace _2048.net
 
         private bool TileMatchesAvailable()
         {
-            Tile tile;
+            GameTile tile;
 
             for (var x = 0; x < _size; x++)
             {
@@ -313,7 +313,7 @@ namespace _2048.net
             // Reload the game from a previous game if present
             if (null != previousState)
             {
-                _grid = new Grid(previousState.Grid.Size,
+                _grid = new GameGrid(previousState.Grid.Size,
                                             previousState.Grid); // Reload grid
 
                 Score = previousState.Score;
@@ -322,7 +322,7 @@ namespace _2048.net
                 KeepPlaying = previousState.KeepPlaying;
             }
             else {
-                _grid = new Grid(_size);
+                _grid = new GameGrid(_size);
                 Score = 0;
                 Over = false;
                 Won = false;

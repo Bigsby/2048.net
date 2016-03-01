@@ -1,10 +1,8 @@
-﻿using System;
-
-namespace _2048.net
+﻿namespace DCCC
 {
-    public class Tile
+    public class GameTile
     {
-        public Tile(CellPosition cell, uint value)
+        public GameTile(CellPosition cell, uint value)
         {
             Position = cell;
             Value = value;
@@ -29,12 +27,12 @@ namespace _2048.net
 
     public class MergeTile
     {
-        public MergeTile(Tile previous, Tile next)
+        public MergeTile(GameTile previous, GameTile next)
         {
             Previous = previous;
             Next = next;
         }
-        public Tile Previous { get; private set; }
-        public Tile Next { get; private set; }
+        public GameTile Previous { get; private set; }
+        public GameTile Next { get; private set; }
     }
 }

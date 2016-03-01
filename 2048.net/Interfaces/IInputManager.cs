@@ -1,6 +1,6 @@
 ﻿using System;
 
-namespace _2048.net.Interfaces
+namespace DCCC.Interfaces
 {
     public interface IInputManager
     {
