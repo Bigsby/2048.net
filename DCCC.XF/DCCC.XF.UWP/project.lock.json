@@ -1536,7 +1536,7 @@
           "lib/netcore50/System.Xml.XmlSerializer.dll": {}
         }
       },
-      "Xamarin.Forms/2.0.0.6482": {
+      "Xamarin.Forms/2.1.0.6521": {
         "compile": {
           "lib/uap10.0/Xamarin.Forms.Core.dll": {},
           "lib/uap10.0/Xamarin.Forms.Platform.dll": {},
@@ -3175,7 +3175,7 @@
           "lib/netcore50/System.Xml.XmlSerializer.dll": {}
         }
       },
-      "Xamarin.Forms/2.0.0.6482": {
+      "Xamarin.Forms/2.1.0.6521": {
         "compile": {
           "lib/uap10.0/Xamarin.Forms.Core.dll": {},
           "lib/uap10.0/Xamarin.Forms.Platform.dll": {},
@@ -4786,7 +4786,7 @@
           "runtimes/win8-aot/lib/netcore50/System.Xml.XmlSerializer.dll": {}
         }
       },
-      "Xamarin.Forms/2.0.0.6482": {
+      "Xamarin.Forms/2.1.0.6521": {
         "compile": {
           "lib/uap10.0/Xamarin.Forms.Core.dll": {},
           "lib/uap10.0/Xamarin.Forms.Platform.dll": {},
@@ -6430,7 +6430,7 @@
           "lib/netcore50/System.Xml.XmlSerializer.dll": {}
         }
       },
-      "Xamarin.Forms/2.0.0.6482": {
+      "Xamarin.Forms/2.1.0.6521": {
         "compile": {
           "lib/uap10.0/Xamarin.Forms.Core.dll": {},
           "lib/uap10.0/Xamarin.Forms.Platform.dll": {},
@@ -8041,7 +8041,7 @@
           "runtimes/win8-aot/lib/netcore50/System.Xml.XmlSerializer.dll": {}
         }
       },
-      "Xamarin.Forms/2.0.0.6482": {
+      "Xamarin.Forms/2.1.0.6521": {
         "compile": {
           "lib/uap10.0/Xamarin.Forms.Core.dll": {},
           "lib/uap10.0/Xamarin.Forms.Platform.dll": {},
@@ -9685,7 +9685,7 @@
           "lib/netcore50/System.Xml.XmlSerializer.dll": {}
         }
       },
-      "Xamarin.Forms/2.0.0.6482": {
+      "Xamarin.Forms/2.1.0.6521": {
         "compile": {
           "lib/uap10.0/Xamarin.Forms.Core.dll": {},
           "lib/uap10.0/Xamarin.Forms.Platform.dll": {},
@@ -11296,7 +11296,7 @@
           "runtimes/win8-aot/lib/netcore50/System.Xml.XmlSerializer.dll": {}
         }
       },
-      "Xamarin.Forms/2.0.0.6482": {
+      "Xamarin.Forms/2.1.0.6521": {
         "compile": {
           "lib/uap10.0/Xamarin.Forms.Core.dll": {},
           "lib/uap10.0/Xamarin.Forms.Platform.dll": {},
@@ -14661,8 +14661,8 @@
         "System.Xml.XmlSerializer.nuspec"
       ]
     },
-    "Xamarin.Forms/2.0.0.6482": {
-      "sha512": "ZE9oH3uZY1gUwFiBB4Wr9y2CD73nWgJTHkSx2EZC9MrchSevV5SKTeP4UG4iy3NyuAPtXzBFgXfKCtRIN7ZR/g==",
+    "Xamarin.Forms/2.1.0.6521": {
+      "sha512": "WD3ZuKR2bt7Qdu4etLKgtcrAvgAxMcWq4sxAPb5rSFKq6rZ+CnLTTm03W4VZRseg9pThIwVokLn7MMoHQ3wqIw==",
       "type": "Package",
       "files": [
         "[Content_Types].xml",
@@ -14703,7 +14703,7 @@
         "lib/uap10.0/Xamarin.Forms.Platform.dll",
         "lib/uap10.0/Xamarin.Forms.Platform.UAP.dll",
         "lib/uap10.0/Xamarin.Forms.Platform.UAP.pri",
-        "lib/uap10.0/Xamarin.Forms.Platform.UAP/FormsTextBox.xbf",
+        "lib/uap10.0/Xamarin.Forms.Platform.UAP/FormsTextBoxStyle.xbf",
         "lib/uap10.0/Xamarin.Forms.Platform.UAP/PageControl.xbf",
         "lib/uap10.0/Xamarin.Forms.Platform.UAP/Properties/Xamarin.Forms.Platform.UAP.rd.xml",
         "lib/uap10.0/Xamarin.Forms.Platform.UAP/Resources.xbf",
@@ -14717,10 +14717,10 @@
         "lib/win81/Xamarin.Forms.Platform.WinRT.pri",
         "lib/win81/Xamarin.Forms.Platform.WinRT.Tablet.dll",
         "lib/win81/Xamarin.Forms.Platform.WinRT.Tablet.pri",
+        "lib/win81/Xamarin.Forms.Platform.WinRT.Tablet/FormsTextBoxStyle.xbf",
         "lib/win81/Xamarin.Forms.Platform.WinRT.Tablet/Resources.xbf",
         "lib/win81/Xamarin.Forms.Platform.WinRT.Tablet/TabletResources.xbf",
         "lib/win81/Xamarin.Forms.Platform.WinRT.Tablet/Xamarin.Forms.Platform.WinRT.Tablet.xr.xml",
-        "lib/win81/Xamarin.Forms.Platform.WinRT/FormsTextBox.xbf",
         "lib/win81/Xamarin.Forms.Platform.WinRT/PageControl.xbf",
         "lib/win81/Xamarin.Forms.Platform.WinRT/StepperControl.xbf",
         "lib/win81/Xamarin.Forms.Platform.WinRT/Xamarin.Forms.Platform.WinRT.xr.xml",
@@ -14738,12 +14738,12 @@
         "lib/wpa81/Xamarin.Forms.Platform.WinRT.dll",
         "lib/wpa81/Xamarin.Forms.Platform.WinRT.Phone.dll",
         "lib/wpa81/Xamarin.Forms.Platform.WinRT.Phone.pri",
+        "lib/wpa81/Xamarin.Forms.Platform.WinRT.Phone/FormsTextBoxStyle.xbf",
         "lib/wpa81/Xamarin.Forms.Platform.WinRT.Phone/PhoneResources.xbf",
         "lib/wpa81/Xamarin.Forms.Platform.WinRT.Phone/Resources.xbf",
         "lib/wpa81/Xamarin.Forms.Platform.WinRT.Phone/SearchBox.xbf",
         "lib/wpa81/Xamarin.Forms.Platform.WinRT.Phone/Xamarin.Forms.Platform.WinRT.Phone.xr.xml",
         "lib/wpa81/Xamarin.Forms.Platform.WinRT.pri",
-        "lib/wpa81/Xamarin.Forms.Platform.WinRT/FormsTextBox.xbf",
         "lib/wpa81/Xamarin.Forms.Platform.WinRT/PageControl.xbf",
         "lib/wpa81/Xamarin.Forms.Platform.WinRT/StepperControl.xbf",
         "lib/wpa81/Xamarin.Forms.Platform.WinRT/Xamarin.Forms.Platform.WinRT.xr.xml",
@@ -14755,7 +14755,7 @@
         "lib/Xamarin.iOS10/Xamarin.Forms.Platform.iOS.dll",
         "lib/Xamarin.iOS10/Xamarin.Forms.Xaml.dll",
         "lib/Xamarin.iOS10/Xamarin.Forms.Xaml.xml",
-        "package/services/metadata/core-properties/d30c4c06c20b4f1592d2217f698fe25a.psmdcp",
+        "package/services/metadata/core-properties/d56c19d7130c4b1597f80316feb43eac.psmdcp",
         "tools/init.ps1",
         "tools/Xamarin.Forms.Core.Design.dll",
         "tools/Xamarin.Forms.Xaml.Design.dll",
@@ -14766,7 +14766,7 @@
   "projectFileDependencyGroups": {
     "": [
       "Microsoft.NETCore.UniversalWindowsPlatform >= 5.0.0",
-      "Xamarin.Forms >= 2.0.0.6482"
+      "Xamarin.Forms >= 2.1.0.6521"
     ],
     "UAP,Version=v10.0": []
   }
