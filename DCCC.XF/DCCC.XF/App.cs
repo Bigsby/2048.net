@@ -8,6 +8,28 @@ namespace DCCC.XF
     {
         public App()
         {
+            MainPage = new GridTest();
+        }
+
+        private void TestPages()
+        {
+            MainPage = new TestContentPage(() => GoTo(false));
+        }
+
+        private void GoTo(bool content)
+        {
+            ContentPage newPage = null;
+
+            if (content)
+                newPage = new TestContentPage(() => GoTo(false));
+            else
+                newPage = new TestPage(() => GoTo(true));
+
+            MainPage = newPage;
+        }
+
+        private void SetGesturesPage()
+        {
             var label = new Label
             {
                 HorizontalTextAlignment = TextAlignment.Center,
@@ -71,8 +93,6 @@ namespace DCCC.XF
             MainPage = contentPage;
 
             AddGestureRecognizers(stackLayout, label);
-
-
         }
 
         private void AddGestureRecognizers(View container, Label displayer)
