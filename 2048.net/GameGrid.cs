@@ -20,7 +20,7 @@ namespace DCCC
         // Check if there are any cells available
         public bool CellsAvailable()
         {
-            return !AvailableCells().Any();
+            return AvailableCells().Any();
         }
 
         // Find the first available random position
@@ -92,7 +92,7 @@ namespace DCCC
         }
 
         public GameTile[,] Cells
-        { get { throw new NotImplementedException(); } }
+        { get { return _cells; } }
 
         public GameTile[,] BuildFromPreviousState(GameGrid state)
         {
@@ -122,7 +122,7 @@ namespace DCCC
             EachCell((x, y, tile) =>
             {
                 if (null == tile)
-                    result.Add(tile.Position);
+                    result.Add(new CellPosition(x, y));
             });
 
             return result;
@@ -132,10 +132,6 @@ namespace DCCC
         {
             return null != Cells[position.X, position.Y];
         }
-    }
-
-    public class Cell
-    {
     }
 
     public struct CellPosition
@@ -151,6 +147,11 @@ namespace DCCC
         public bool IsEqual(CellPosition pos)
         {
             return X == pos.X && Y == pos.Y;
+        }
+
+        public override string ToString()
+        {
+            return string.Format("[{0},{1}]", X, Y);
         }
     }
 }

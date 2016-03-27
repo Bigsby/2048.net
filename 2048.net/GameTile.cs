@@ -16,13 +16,18 @@
 
         public void UpdatePosition(CellPosition position)
         {
-            Position = new CellPosition(position.X, Position.Y);
+            Position = position;
         }
 
         public CellPosition Position { get; private set; }
         public object Next { get; set; }
         public uint Value { get; private set; }
         private CellPosition _previousPosition;
+
+        public override string ToString()
+        {
+            return Position + " " + Value;
+        }
     }
 
     public class MergeTile
@@ -34,5 +39,10 @@
         }
         public GameTile Previous { get; private set; }
         public GameTile Next { get; private set; }
+
+        public override string ToString()
+        {
+            return Previous + " » " + Next;
+        }
     }
 }

@@ -1,7 +1,6 @@
 ﻿using DCCC.Interfaces;
 using System;
 using System.Collections.Generic;
-using System.Linq;
 
 namespace DCCC
 {
@@ -136,14 +135,11 @@ namespace DCCC
                             // The mighty 2048 tile
                             if (merged.Value == _winingTileValue) Won = true;
                         }
-                        else {
+                        else
                             MoveTile(tile, positions.Farthest);
-                        }
 
-                        if (cell.IsEqual(tile.Position))
-                        {
+                        if (!cell.IsEqual(tile.Position))
                             moved = true; // The tile moved from its original cell!
-                        }
                     }
                 }
             }
@@ -298,6 +294,11 @@ namespace DCCC
             }
             public int X { get; private set; }
             public int Y { get; private set; }
+
+            public override string ToString()
+            {
+                return string.Format("[{0},{1}]", X, Y);
+            }
         }
 
         #endregion
