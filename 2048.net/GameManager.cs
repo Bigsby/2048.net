@@ -25,7 +25,7 @@ namespace DCCC
             _inputManager.OnRestart(HandleRestart);
             _inputManager.OnKeepPlaying(HandleKeepPlaying);
 
-            Setup();
+            _inputManager.Ready += (s, e) => Setup();
         }
 
         #region Properties

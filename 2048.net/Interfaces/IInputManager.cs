@@ -9,7 +9,7 @@ namespace DCCC.Interfaces
         void OnKeepPlaying(Action callback);
         void Actuate(IGameState gameState);
         void ContinueGame();
-
+        event EventHandler Ready;
     }
 
     public enum MoveDirection

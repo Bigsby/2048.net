@@ -10,14 +10,20 @@ namespace DCCC.XF
         {
             _gamePage = gamePage;
             _gamePage.Moved += (s, e) => _moveHandler(e.Direction);
+            _gamePage.Ready += (s, e) => Ready?.Invoke(this, EventArgs.Empty);
         }
 
         private Action<MoveDirection> _moveHandler;
         private Action _restartHanlder;
         private Action _keepPlayingHandler;
 
+        public event EventHandler Ready;
+
         public void Actuate(IGameState gameState)
         {
+            if (gameState.Won)
+                gameState.KeepPlaying = true;
+
             _gamePage.Update(gameState);
         }
 

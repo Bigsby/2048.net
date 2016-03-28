@@ -5,50 +5,40 @@ namespace DCCC.XF
     public class GameCell : Grid
     {
         private readonly Label _label;
-        public GameCell()
+        private readonly double _fontInitialSize;
+        public GameCell(double size)
         {
-            Padding = 5;
+            _fontInitialSize = size / 2;
             BackgroundColor = Color.Gray;
-            HeightRequest = 100;
-            WidthRequest = 100;
+            WidthRequest = HeightRequest = size;
             _label = new Label
             {
                 FontAttributes = FontAttributes.Bold,
                 TextColor = Color.White,
-                FontSize = GetFontSize(0),
+                FontSize = GetFontSize(string.Empty),
                 VerticalOptions = LayoutOptions.Center,
                 HorizontalOptions = LayoutOptions.Center
-            };
-            _label.PropertyChanged += (s, e) => {
-                var l = s as Label;
-                if (null == s) return;
-
-                if (null != l && e.PropertyName == "Text")
-                    l.FontSize = GetFontSize(l.Text?.Length);
             };
 
             Children.Add(_label);
         }
 
-        private double GetFontSize(int? digits)
-        {
-            switch (digits)
-            {
-                case 0: return 0;
-                case 1: return 40;
-                case 2: return 35;
-                case 3: return 30;
-                case 4: return 25;
-                case 5: return 20;
-                default:
-                    return 20;
-            }
-        }
-
         public string Text
         {
             get { return _label.Text; }
-            set { _label.Text = value; }
+            set
+            {
+                _label.Text = value;
+                _label.FontSize = GetFontSize(value);
+            }
+        }
+
+        private double GetFontSize(string text)
+        {
+            if (text?.Length < 3)
+                return _fontInitialSize;
+
+            return _fontInitialSize * 2 / text.Length;
         }
     }
 }

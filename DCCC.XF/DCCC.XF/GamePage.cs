@@ -6,35 +6,55 @@ namespace DCCC.XF
 {
     public class GamePage : ContentPage
     {
-        private readonly Grid _mainGrid;
-        private readonly GameGrid _gameGrid;
-        private readonly GameHeader _gameHeader;
+        private Grid _mainGrid;
+        private GameGrid _gameGrid;
+        private GameHeader _gameHeader;
 
         public GamePage()
         {
-            _mainGrid = new Grid
+            Appearing += (s, e) =>
             {
-                RowSpacing = 0,
-                ColumnSpacing = 0
+                
+
+                _mainGrid = new Grid
+                {
+                    BackgroundColor = Color.Transparent, // Necessary for PanGestureRecognizer to read pans outside content
+                    RowSpacing = 0,
+                    ColumnSpacing = 0
+                };
+
+                BackgroundColor = Color.Black;
+
+                _gameHeader = new GameHeader();
+
+                _gameGrid = new GameGrid(CalculateGridSize(), 4);
+                _gameGrid.VerticalOptions = _gameGrid.HorizontalOptions = LayoutOptions.Center;
+
+                _mainGrid.RowDefinitions.Add(new RowDefinition { Height = GridLength.Auto });
+                _mainGrid.RowDefinitions.Add(new RowDefinition());
+
+                _mainGrid.Children.Add(_gameHeader);
+                Grid.SetRow(_gameGrid, 1);
+                _mainGrid.Children.Add(_gameGrid);
+
+                _mainGrid.Children.Add(BuildKeyboardInputEntry());
+                Content = _mainGrid;
+                Content.GestureRecognizers.Add(BuildSwipeRecognizer());
+
+                Ready?.Invoke(this, EventArgs.Empty);
             };
+        }
 
-            BackgroundColor = Color.Black;
+        private double CalculateGridSize()
+        {
+            if (Width > Height)
+                return Height * .8;
 
-            _gameHeader = new GameHeader();
+            return Width * .9;
+        }
 
-            _gameGrid = new GameGrid(4)
-            {
-                VerticalOptions = LayoutOptions.Center,
-                HorizontalOptions = LayoutOptions.Center
-            };
-
-            _mainGrid.RowDefinitions.Add(new RowDefinition { Height = GridLength.Auto });
-            _mainGrid.RowDefinitions.Add(new RowDefinition());
-
-            _mainGrid.Children.Add(_gameHeader);
-            Grid.SetRow(_gameGrid, 1);
-            _mainGrid.Children.Add(_gameGrid);
-
+        private PanGestureRecognizer BuildSwipeRecognizer()
+        {
             var panGesture = new PanGestureRecognizer();
             var totalX = .0;
             var totalY = .0;
@@ -63,7 +83,11 @@ namespace DCCC.XF
                 }
             };
 
+            return panGesture;
+        }
 
+        private Entry BuildKeyboardInputEntry()
+        {
             var kbInput = new Entry
             {
                 Opacity = 0,
@@ -96,10 +120,8 @@ namespace DCCC.XF
                 kbInput.Text = string.Empty;
             };
 
-            _mainGrid.Children.Add(kbInput);
             kbInput.Focus();
-            Content = _mainGrid;
-            Content.GestureRecognizers.Add(panGesture);
+            return kbInput;
         }
 
         internal void Update(IGameState gameState)
@@ -114,6 +136,8 @@ namespace DCCC.XF
         {
             Moved?.Invoke(this, new MoveEventArgs(direction));
         }
+
+        internal event EventHandler Ready;
     }
 
     public class MoveEventArgs : EventArgs
