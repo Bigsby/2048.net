@@ -2,11 +2,11 @@
 
 namespace DCCC
 {
-    public class Application
+    public class GameApplication
     {
         private IInputManager _inputManager;
         private ILocalStorageManager _localStorageManager;
-        public Application(IInputManager inputManager, ILocalStorageManager localStorageManager = null)
+        public GameApplication(IInputManager inputManager, ILocalStorageManager localStorageManager = null)
         {
             _inputManager = inputManager;
             _localStorageManager = localStorageManager ?? new DefaultLocalStorageManager();

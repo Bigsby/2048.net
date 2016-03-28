@@ -40,6 +40,7 @@
     <Compile Include="Application.cs" />
     <Compile Include="GameManager.cs" />
     <Compile Include="GameGrid.cs" />
+    <Compile Include="Interfaces\IGameState.cs" />
     <Compile Include="Interfaces\IInputManager.cs" />
     <Compile Include="Interfaces\ILocalStorageManager.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />

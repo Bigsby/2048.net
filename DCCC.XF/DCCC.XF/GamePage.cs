@@ -1,10 +1,11 @@
 ﻿using DCCC.Interfaces;
 using System;
+using System.Threading.Tasks;
 using Xamarin.Forms;
 
 namespace DCCC.XF
 {
-    public class GamePage : ContentPage
+    public class GamePage : ContentPage, IGamePage
     {
         private Grid _mainGrid;
         private GameGrid _gameGrid;
@@ -14,8 +15,6 @@ namespace DCCC.XF
         {
             Appearing += (s, e) =>
             {
-                
-
                 _mainGrid = new Grid
                 {
                     BackgroundColor = Color.Transparent, // Necessary for PanGestureRecognizer to read pans outside content
@@ -25,7 +24,7 @@ namespace DCCC.XF
 
                 BackgroundColor = Color.Black;
 
-                _gameHeader = new GameHeader();
+                _gameHeader = new GameHeader(CalculateHeaderFontSize());
 
                 _gameGrid = new GameGrid(CalculateGridSize(), 4);
                 _gameGrid.VerticalOptions = _gameGrid.HorizontalOptions = LayoutOptions.Center;
@@ -45,12 +44,35 @@ namespace DCCC.XF
             };
         }
 
+        public event EventHandler<MoveEventArgs> Moved;
+        public event EventHandler Ready;
+
+        public void Update(IGameState gameState)
+        {
+            _gameGrid.Update(gameState.Grid.Cells);
+            _gameHeader.Update(gameState.Score, gameState.Score);
+        }
+
+        internal void ConfirmKeepGoing(Action<bool> resultHandler)
+        {
+            DisplayAlert("Gaem Won!", "Do you want to keep going?", "Yes", "No").ContinueWith(task =>
+                Device.BeginInvokeOnMainThread(() => resultHandler(task.Result)));
+        }
+
+        #region Private Methods
         private double CalculateGridSize()
         {
             if (Width > Height)
                 return Height * .8;
 
             return Width * .9;
+        }
+
+        private double CalculateHeaderFontSize()
+        {
+            if (Width > Height)
+                return Height * .075;
+            return Width * .075;
         }
 
         private PanGestureRecognizer BuildSwipeRecognizer()
@@ -104,15 +126,19 @@ namespace DCCC.XF
                 switch (t)
                 {
                     case "A":
+                    case "4":
                         Move(MoveDirection.Left);
                         break;
                     case "W":
+                    case "8":
                         Move(MoveDirection.Up);
                         break;
                     case "D":
+                    case "6":
                         Move(MoveDirection.Right);
                         break;
                     case "S":
+                    case "2":
                         Move(MoveDirection.Down);
                         break;
                 }
@@ -124,28 +150,10 @@ namespace DCCC.XF
             return kbInput;
         }
 
-        internal void Update(IGameState gameState)
-        {
-            _gameGrid.Update(gameState.Grid.Cells);
-            _gameHeader.Update(gameState.Score, gameState.Score);
-        }
-
-        public event EventHandler<MoveEventArgs> Moved;
-
         private void Move(MoveDirection direction)
         {
             Moved?.Invoke(this, new MoveEventArgs(direction));
         }
-
-        internal event EventHandler Ready;
     }
-
-    public class MoveEventArgs : EventArgs
-    {
-        public MoveEventArgs(MoveDirection direction)
-        {
-            Direction = direction;
-        }
-        public MoveDirection Direction { get; private set; }
-    }
+    #endregion
 }

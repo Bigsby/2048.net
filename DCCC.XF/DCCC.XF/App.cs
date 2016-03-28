@@ -1,15 +1,13 @@
-﻿using System;
-using System.Linq;
-using Xamarin.Forms;
+﻿using Xamarin.Forms;
 
 namespace DCCC.XF
 {
-    public class App : Xamarin.Forms.Application
+    public class App : Application
     {
         GamePage _gamePage;
         public App()
         {
-            var app = new Application(new XFInputManager(_gamePage = new GamePage()));
+            var app = new GameApplication(new XFInputManager(_gamePage = new GamePage()));
             MainPage = _gamePage;
         }
 

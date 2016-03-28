@@ -3,48 +3,18 @@ using System;
 
 namespace DCCC.XF
 {
-    public class XFInputManager : IInputManager
+    public class XFInputManager : BaseInputManager, IInputManager
     {
         private readonly GamePage _gamePage;
         public XFInputManager(GamePage gamePage)
+            : base(gamePage)
         {
             _gamePage = gamePage;
-            _gamePage.Moved += (s, e) => _moveHandler(e.Direction);
-            _gamePage.Ready += (s, e) => Ready?.Invoke(this, EventArgs.Empty);
         }
 
-        private Action<MoveDirection> _moveHandler;
-        private Action _restartHanlder;
-        private Action _keepPlayingHandler;
-
-        public event EventHandler Ready;
-
-        public void Actuate(IGameState gameState)
+        protected override void ConfirmKeepGoing(Action<bool> handler)
         {
-            if (gameState.Won)
-                gameState.KeepPlaying = true;
-
-            _gamePage.Update(gameState);
-        }
-
-        public void ContinueGame()
-        {
-            throw new NotImplementedException();
-        }
-
-        public void OnKeepPlaying(Action callback)
-        {
-            _keepPlayingHandler = callback;
-        }
-
-        public void OnMove(Action<MoveDirection> callback)
-        {
-            _moveHandler = callback;
-        }
-
-        public void OnRestart(Action callback)
-        {
-            _restartHanlder = callback;
+            _gamePage.ConfirmKeepGoing(handler);
         }
     }
 }
