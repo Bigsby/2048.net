@@ -1,6 +1,5 @@
 ﻿using DCCC.Interfaces;
 using System;
-using System.Threading.Tasks;
 using Xamarin.Forms;
 
 namespace DCCC.XF
@@ -36,7 +35,9 @@ namespace DCCC.XF
                 Grid.SetRow(_gameGrid, 1);
                 _mainGrid.Children.Add(_gameGrid);
 
-                _mainGrid.Children.Add(BuildKeyboardInputEntry());
+                if (Device.Idiom == TargetIdiom.Desktop)
+                    _mainGrid.Children.Add(BuildKeyboardInputEntry());
+
                 Content = _mainGrid;
                 Content.GestureRecognizers.Add(BuildSwipeRecognizer());
 
