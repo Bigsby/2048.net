@@ -9,8 +9,11 @@
         }
 
         public MergeTile MergedFrom { get; set; }
+        public bool IsNew { get; set; }
+        public CellPosition PreviousPosition { get { return _previousPosition; } }
 
-        public void SavePosition() {
+        public void SavePosition()
+        {
             _previousPosition = new CellPosition(Position.X, Position.Y);
         }
 

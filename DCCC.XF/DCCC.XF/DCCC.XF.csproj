@@ -37,6 +37,7 @@
   <ItemGroup>
     <Compile Include="App.cs" />
     <Compile Include="GameCell.cs" />
+    <Compile Include="GameColors.cs" />
     <Compile Include="GameGrid.cs" />
     <Compile Include="GameHeader.cs" />
     <Compile Include="GameOptions.cs" />

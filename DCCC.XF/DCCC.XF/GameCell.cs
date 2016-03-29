@@ -1,4 +1,5 @@
-﻿using Xamarin.Forms;
+﻿using System;
+using Xamarin.Forms;
 
 namespace DCCC.XF
 {
@@ -6,10 +7,13 @@ namespace DCCC.XF
     {
         private readonly Label _label;
         private readonly double _fontInitialSize;
+        private uint _value;
+
         public GameCell(double size)
         {
             _fontInitialSize = size / 2;
-            BackgroundColor = Color.Gray;
+            BackgroundColor = GameColors.GetTileColor(0);
+
             WidthRequest = HeightRequest = size;
             _label = new Label
             {
@@ -26,11 +30,28 @@ namespace DCCC.XF
         public string Text
         {
             get { return _label.Text; }
-            set
+            private set
             {
                 _label.Text = value;
                 _label.FontSize = GetFontSize(value);
             }
+        }
+
+        public uint Value
+        {
+            get { return _value; }
+            set
+            {
+                if (value == _value) return;
+                _value = value;
+                Text = _value == 0 ? string.Empty : _value.ToString();
+                SetBackground(_value);
+            }
+        }
+
+        private void SetBackground(uint value)
+        {
+            BackgroundColor = GameColors.GetTileColor(value == 0 ? 0 : (int)Math.Log(value, 2));
         }
 
         private double GetFontSize(string text)

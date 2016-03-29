@@ -99,7 +99,7 @@ namespace DCCC
             if (_grid.CellsAvailable())
             {
                 var value = (uint)(((double)(new Random().Next(0, 10000)) / 10000) < 0.9 ? 2 : 4);
-                var tile = new GameTile(_grid.RandomAvailableCell(), value);
+                var tile = new GameTile(_grid.RandomAvailableCell(), value) { IsNew = true };
 
                 _grid.InsertTile(tile);
             }

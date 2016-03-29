@@ -1,4 +1,5 @@
-﻿using Xamarin.Forms;
+﻿using System;
+using Xamarin.Forms;
 
 namespace DCCC.XF
 {
@@ -6,13 +7,15 @@ namespace DCCC.XF
     {
         private readonly int _size;
         private GameCell[,] _cells;
+        private double _childDimension;
+        private double _spacing;
 
         public GameGrid(double dimension, int size)
         {
             _size = size;
             BackgroundColor = Color.FromHex("101010");
-            var spacing = dimension * .01;
-            Padding = RowSpacing = ColumnSpacing = spacing;
+            _spacing = dimension * .01;
+            Padding = RowSpacing = ColumnSpacing = _spacing;
             WidthRequest = HeightRequest = dimension;
 
             _cells = new GameCell[_size, _size];
@@ -23,12 +26,12 @@ namespace DCCC.XF
                 ColumnDefinitions.Add(new ColumnDefinition { Width = GridLength.Auto });
             }
 
-            var childDimension = (dimension - (spacing * (size + 1))) / size;
+            _childDimension = (dimension - (_spacing * (size + 1))) / size;
 
             for (int xIndex = 0; xIndex < _size; xIndex++)
                 for (int yIndex = 0; yIndex < _size; yIndex++)
                 {
-                    var cell = new GameCell(childDimension);
+                    var cell = new GameCell(_childDimension);
                     Children.Add(cell);
                     SetRow(cell, yIndex);
                     SetColumn(cell, xIndex);
@@ -39,14 +42,54 @@ namespace DCCC.XF
         public void Update(GameTile[,] tiles)
         {
             foreach (var cell in _cells)
-                cell.Text = string.Empty;
+                cell.Value = 0;
 
             foreach (var tile in tiles)
             {
                 if (tile == null) continue;
 
-                _cells[tile.Position.X, tile.Position.Y].Text = tile.Value == 0 ? string.Empty : tile.Value.ToString();
+                var cell = _cells[tile.Position.X, tile.Position.Y];
+                cell.Value = tile.Value;
+                if (tile.IsNew)
+                    AnimateNew(cell);
+                else
+                {
+                    if (null != tile.MergedFrom)
+                        AnimateCell(cell, tile.MergedFrom.Previous.Position, tile.MergedFrom.Next.Position);
+
+                    if (!tile.Position.IsEqual(tile.PreviousPosition))
+                        AnimateCell(cell, tile.PreviousPosition, tile.Position);
+                }
             }
+        }
+
+        private void AnimateCell(GameCell cell, CellPosition origin, CellPosition target)
+        {
+            Action<double> animationFunction = origin.X == target.X
+                ?
+                new Action<double>(translation => cell.TranslationY = translation)
+                :
+                new Action<double>(translation => cell.TranslationX = translation);
+
+            var start = origin.X == target.X ?
+                CalculateDistance(origin.Y, target.Y)
+                :
+                CalculateDistance(origin.X, target.X);
+
+            cell.Animate("tileMove", new Animation(animationFunction, start, 0));
+
+        }
+
+        private double CalculateDistance(int origin, int target)
+        {
+            var difference = Math.Abs(target - origin);
+            var distance = difference * _childDimension + ((difference + 1) * _spacing);
+            return target > origin ? distance : -distance;
+        }
+
+        private void AnimateNew(GameCell cell)
+        {
+            cell.Animate("newTile", new Animation((double scale) => cell.Scale = scale));
         }
     }
 }

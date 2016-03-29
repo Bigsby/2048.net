@@ -44,7 +44,7 @@ namespace DCCC.XF
         {
             var result = GetCenteredLabel();
             result.FontSize = _fontSize;
-            result.TextColor = Color.Yellow;
+            result.TextColor = GameColors.ScoreColor;
             result.FontAttributes = FontAttributes.Bold;
             SetRow(result, 1);
             return result;
@@ -56,7 +56,7 @@ namespace DCCC.XF
             {
                 VerticalOptions = LayoutOptions.Center,
                 HorizontalOptions = LayoutOptions.Center,
-                TextColor = Color.Red,
+                TextColor = GameColors.ScoreCaptionColor,
                 FontSize = _fontSize * .75
             };
         }
