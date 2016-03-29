@@ -1,5 +1,6 @@
 ﻿using DCCC.Interfaces;
 using System;
+using System.Collections.Generic;
 
 namespace DCCC.XF
 {
@@ -15,6 +16,11 @@ namespace DCCC.XF
         protected override void ConfirmKeepGoing(Action<bool> handler)
         {
             _gamePage.ConfirmKeepGoing(handler);
+        }
+
+        protected override void ShowOptions(IEnumerable<Interfaces.GameOption> options)
+        {
+            throw new NotImplementedException();
         }
     }
 }

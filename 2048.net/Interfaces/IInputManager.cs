@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Collections.Generic;
 
 namespace DCCC.Interfaces
 {
@@ -41,6 +42,9 @@ namespace DCCC.Interfaces
 
             if (gameState.Won && !gameState.KeepPlaying)
                 _keepPlayingHandler();
+
+            if (gameState.Over)
+            { }
                 //ConfirmKeepGoing(result => { if (result) _keepPlayingHandler(); });
         }
 
@@ -65,6 +69,19 @@ namespace DCCC.Interfaces
         }
 
         protected abstract void ConfirmKeepGoing(Action<bool> handler);
+
+        protected abstract void ShowOptions(IEnumerable<GameOption> options);
+    }
+
+    public class GameOption
+    {
+        public GameOption(string caption, Action callback)
+        {
+            Caption = caption;
+            Callback = callback;
+        }
+        public string Caption { get; private set; }
+        public Action Callback { get; private set; }
     }
 
     public enum MoveDirection

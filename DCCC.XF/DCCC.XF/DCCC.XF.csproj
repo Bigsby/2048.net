@@ -39,6 +39,7 @@
     <Compile Include="GameCell.cs" />
     <Compile Include="GameGrid.cs" />
     <Compile Include="GameHeader.cs" />
+    <Compile Include="GameOptions.cs" />
     <Compile Include="GamePage.cs" />
     <Compile Include="GridTest.cs" />
     <Compile Include="InputTest.cs" />
