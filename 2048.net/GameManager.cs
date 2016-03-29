@@ -195,6 +195,7 @@ namespace DCCC
                 {
                     tile.MergedFrom = null;
                     tile.SavePosition();
+                    tite.IsNew = false;
                 }
             });
         }
