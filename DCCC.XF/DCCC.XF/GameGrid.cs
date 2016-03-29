@@ -50,6 +50,7 @@ namespace DCCC.XF
 
                 var cell = _cells[tile.Position.X, tile.Position.Y];
                 cell.Value = tile.Value;
+                if (tile.Value == 0) return;
                 if (tile.IsNew)
                     AnimateNew(cell);
                 else
