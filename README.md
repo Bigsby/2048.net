@@ -7,10 +7,12 @@ Maybe, one day, to be published in all the stores there are.
 
 Feel free to suggest or contribute.
 
-Next steps:
-* Add colors to tiles depending on value
-* Add animations to moving and new tiles
+Future features:
 * Store game state and scores locally
-* Add start menu with multiple size boards options
+* Add start menu with options:
+  * Multiple grid sizes
+  * Game modes:
+    * Continous (scored with high score)
+    * Timed (fihish as fast as possible)
 * Implement Web Service to share high scores between players
-* ...what I might come up with, in the meantime...
+* ...whatever I might come up with or am suggested, in the meantime...
