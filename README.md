@@ -9,6 +9,10 @@ Feel free to suggest or contribute.
 
 Future features:
 * Store game state and scores locally
-* Add start menu with multiple size boards options
+* Add start menu with options:
+  * Multiple grid sizes
+  * Game modes:
+    * Continous (scored with high score)
+    * Timed (fihish as fast as possible)
 * Implement Web Service to share high scores between players
 * ...whatever I might come up with or am suggested, in the meantime...
