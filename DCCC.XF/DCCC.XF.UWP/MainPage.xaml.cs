@@ -1,17 +1,6 @@
 ﻿using System;
-using System.Collections.Generic;
-using System.IO;
-using System.Linq;
-using System.Runtime.InteropServices.WindowsRuntime;
-using Windows.Foundation;
-using Windows.Foundation.Collections;
-using Windows.UI.Xaml;
-using Windows.UI.Xaml.Controls;
-using Windows.UI.Xaml.Controls.Primitives;
-using Windows.UI.Xaml.Data;
-using Windows.UI.Xaml.Input;
-using Windows.UI.Xaml.Media;
-using Windows.UI.Xaml.Navigation;
+using Windows.Foundation.Metadata;
+using Windows.UI;
 
 namespace DCCC.XF.UWP
 {
@@ -21,7 +10,16 @@ namespace DCCC.XF.UWP
         {
             this.InitializeComponent();
 
-            LoadApplication(new DCCC.XF.App());
+            LoadApplication(new XF.App());
+            if (ApiInformation.IsTypePresent("Windows.UI.ViewManagement.StatusBar"))
+            {
+                var statusBar = Windows.UI.ViewManagement.StatusBar.GetForCurrentView();
+                statusBar.BackgroundColor = Color.FromArgb(255, 0, 0, 0);
+                statusBar.ForegroundColor = Color.FromArgb(255, 255, 255, 255);
+                statusBar.ShowAsync().AsTask().Wait();
+                //statusBar.BackgroundColor = Windows.UI.Colors.Transparent;
+                //statusBar.ForegroundColor = Windows.UI.Colors.Red;
+            }
         }
     }
 }

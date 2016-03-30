@@ -2,6 +2,8 @@
 using Windows.ApplicationModel;
 using Windows.ApplicationModel.Activation;
 using Windows.Foundation.Metadata;
+using Windows.UI;
+using Windows.UI.ViewManagement;
 using Windows.UI.Xaml;
 using Windows.UI.Xaml.Controls;
 using Windows.UI.Xaml.Navigation;
@@ -21,26 +23,18 @@ namespace DCCC.XF.UWP
         {
             InitializeComponent();
 
-            if (ApiInformation.IsTypePresent("Windows.UI.ViewManagement.ApplicationView"))
-            {
-                var titleBar = ApplicationView.GetForCurrentView().TitleBar;
-                if (titleBar != null)
-                {
-                    titleBar.
-                    titleBar.ButtonBackgroundColor = Colors.DarkBlue;
-                    titleBar.ButtonForegroundColor = Colors.White;
-                    titleBar.BackgroundColor = Colors.Blue;
-                    titleBar.ForegroundColor = Colors.White;
-                }
-            }
+            //if (ApiInformation.IsTypePresent("Windows.UI.ViewManagement.ApplicationView"))
+            //{
+            //    var titleBar = ApplicationView.GetForCurrentView().TitleBar;
+            //    if (titleBar != null)
+            //    {
+            //        titleBar.ButtonBackgroundColor = Colors.Transparent;
+            //        titleBar.ButtonForegroundColor = Colors.White;
+            //        titleBar.BackgroundColor = Colors.Transparent;
+            //        titleBar.ForegroundColor = Colors.White;
+            //    }
+            //}
 
-            if (ApiInformation.IsTypePresent("Windows.UI.ViewManagement.StatusBar"))
-            {
-                var statusBar = Windows.UI.ViewManagement.StatusBar.GetForCurrentView();
-                statusBar.ShowAsync();
-                //statusBar.BackgroundColor = Windows.UI.Colors.Transparent;
-                //statusBar.ForegroundColor = Windows.UI.Colors.Red;
-            }
             this.Suspending += OnSuspending;
         }
 
