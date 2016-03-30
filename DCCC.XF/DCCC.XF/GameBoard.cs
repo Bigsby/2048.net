@@ -29,15 +29,36 @@ namespace DCCC.XF
 
             _childDimension = (dimension - (_spacing * (size + 1))) / size;
 
+            BuildGrid((x, y) => BuildBackgroundGrid(_childDimension));
+
+            BuildGrid((x, y) =>
+               {
+                   var cell = new GameCell(_childDimension);
+                   _cells[x, y] = cell;
+                   return cell;
+               });
+        }
+
+        private void BuildGrid(Func<int, int, Grid> itemConstructor)
+        {
             for (int xIndex = 0; xIndex < _size; xIndex++)
                 for (int yIndex = 0; yIndex < _size; yIndex++)
                 {
-                    var cell = new GameCell(_childDimension);
+                    var cell = itemConstructor(xIndex, yIndex);
                     Children.Add(cell);
                     SetRow(cell, yIndex);
                     SetColumn(cell, xIndex);
-                    _cells[xIndex, yIndex] = cell;
                 }
+        }
+
+        private Grid BuildBackgroundGrid(double size)
+        {
+            return new Grid
+            {
+                BackgroundColor = Color.FromHex("090D13"),
+                HeightRequest = size,
+                WidthRequest = size
+            };
         }
 
         private GameTile[] _newTiles = new GameTile[2];
@@ -58,7 +79,7 @@ namespace DCCC.XF
                 if (tile.Value == 0) return;
                 if (tile.IsNew)
                     _newTiles[null == _newTiles[0] ? 0 : 1] = tile;
-                
+
                 else if (null != tile.MergedFrom)
                     AnimateMerge(cell, tile);
                 else if (!tile.Position.IsEqual(tile.PreviousPosition))
@@ -77,18 +98,17 @@ namespace DCCC.XF
                     cell.Value = newTile.Value;
                     AnimateNew(cell);
                 }
-            
+
         }
 
         private void AnimateMerge(GameCell targetCell, GameTile tile)
         {
-            var sourceCell = _cells[tile.MergedFrom.Previous.X, tile.MergedFrom.Previous.Y];
-            sourceCell.Value = targetCell.Value = tile.Value / 2;
-
-            AnimateCell(sourceCell, tile.MergedFrom.Previous, tile.MergedFrom.Next, () => {
-                sourceCell.Value = 0;
-                targetCell.Value = tile.Value;
-            });
+            //var sourceCell = _cells[tile.MergedFrom.Previous.X, tile.MergedFrom.Previous.Y];
+            //sourceCell.Value = targetCell.Value = tile.Value / 2;
+            targetCell.Value = tile.Value / 2;
+            AnimateCell(targetCell, tile.MergedFrom.Previous, tile.Position, () =>
+                targetCell.Value = tile.Value
+            );
         }
 
         private void AnimateCell(GameCell cell, CellPosition origin, CellPosition target, Action finished = null)

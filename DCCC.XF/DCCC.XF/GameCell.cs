@@ -14,7 +14,7 @@ namespace DCCC.XF
             _fontInitialSize = size / 2;
             BackgroundColor = GameColors.GetTileBackgroundColor(0);
 
-            WidthRequest = HeightRequest = size;
+            //WidthRequest = HeightRequest = size;
             _label = new Label
             {
                 FontAttributes = FontAttributes.Bold,

@@ -57,25 +57,6 @@ namespace DCCC
             InternalMove(direction);
         }
 
-        private int CalculateWiningTileValue(int size)
-        {
-            switch (size)
-            {
-                case 4:
-                    return 2048;
-                case 5:
-                    return 8192;
-                case 6:
-                    return 32768;
-                case 7:
-                    return 131072;
-                case 8:
-                    return 524288;
-                default:
-                    return 2048;
-            }
-        }
-
         // Restart the game
         private void HandleRestart()
         {
@@ -383,14 +364,25 @@ namespace DCCC
             }
 
             _inputManager.Actuate(this);
-            //            _grid, 
-            //            {
-            //        score: this.score,
-            //over: this.over,
-            //won: this.won,
-            //bestScore: this.storageManager.getBestScore(),
-            //terminated: this.isGameTerminated()
-            //        });
+        }
+
+        private int CalculateWiningTileValue(int size)
+        {
+            switch (size)
+            {
+                case 4:
+                    return 2048;
+                case 5:
+                    return 8192;
+                case 6:
+                    return 32768;
+                case 7:
+                    return 131072;
+                case 8:
+                    return 524288;
+                default:
+                    return 2048;
+            }
         }
 
         #endregion

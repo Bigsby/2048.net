@@ -27,7 +27,7 @@ namespace DCCC.XF
     internal static class GameColors
     {
         private readonly static Color[] _tileBackgroundColors = new[] {
-            Color.FromHex("090D13"),
+            Color.Transparent,
             Color.FromHex("eee4da"), //2
             Color.FromHex("ede0c8"),
             Color.FromHex("f2b179"), //8
@@ -42,7 +42,7 @@ namespace DCCC.XF
             Color.FromHex("3c3a32")
         };
 
-        private readonly static Color _smallColor = Color.FromHex("000000");
+		private readonly static Color _smallColor = Color.FromHex("776e65");
         private readonly static Color _bigColoer = Color.FromHex("f9f6f2");
 
 
