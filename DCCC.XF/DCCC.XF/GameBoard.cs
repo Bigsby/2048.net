@@ -14,7 +14,7 @@ namespace DCCC.XF
         public GameBoard(double dimension, int size)
         {
             _size = size;
-            BackgroundColor = Color.FromHex("142F54");
+        //    BackgroundColor = Color.FromHex("142F54");
             _spacing = dimension * .01;
             Padding = RowSpacing = ColumnSpacing = _spacing;
             WidthRequest = HeightRequest = dimension;
@@ -55,7 +55,7 @@ namespace DCCC.XF
         {
             return new Grid
             {
-                BackgroundColor = Color.FromHex("090D13"),
+                BackgroundColor = Color.FromHex("142F54"),
                 HeightRequest = size,
                 WidthRequest = size
             };

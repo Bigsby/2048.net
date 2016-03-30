@@ -64,7 +64,7 @@ namespace DCCC.XF
                 colors.Last();
         }
 
-        public static Color ScoreCaptionColor = Color.FromHex("2C4770");
+        public static Color ScoreCaptionColor = Color.FromHex("39629E");
         public static Color ScoreColor = Color.FromHex("4A87E1");
     }
 }
