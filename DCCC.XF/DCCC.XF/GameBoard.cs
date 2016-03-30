@@ -40,13 +40,14 @@ namespace DCCC.XF
                 }
         }
 
+        private GameTile[] _newTiles = new GameTile[2];
+
         public void Update(GameTile[,] tiles)
         {
             foreach (var cell in _cells)
                 cell.Value = 0;
-
-            GameTile newTile = null;
-            GameCell newCell = null;
+            _newTiles[0] = null;
+            _newTiles[1] = null;
 
             foreach (var tile in tiles)
             {
@@ -56,10 +57,8 @@ namespace DCCC.XF
 
                 if (tile.Value == 0) return;
                 if (tile.IsNew)
-                {
-                    newCell = cell;
-                    newTile = tile;
-                }
+                    _newTiles[null == _newTiles[0] ? 0 : 1] = tile;
+                
                 else if (null != tile.MergedFrom)
                     AnimateMerge(cell, tile);
                 else if (!tile.Position.IsEqual(tile.PreviousPosition))
@@ -71,12 +70,14 @@ namespace DCCC.XF
                     cell.Value = tile.Value;
             }
 
-            if (null != newTile && null != newCell)
-            {
-                newCell.Value = newTile.Value;
-                AnimateNew(newCell);
-            }
-
+            foreach (var newTile in _newTiles)
+                if (null != newTile)
+                {
+                    var cell = _cells[newTile.Position.X, newTile.Position.Y];
+                    cell.Value = newTile.Value;
+                    AnimateNew(cell);
+                }
+            
         }
 
         private void AnimateMerge(GameCell targetCell, GameTile tile)
