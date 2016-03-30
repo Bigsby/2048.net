@@ -14,7 +14,7 @@ namespace DCCC.XF
         public GameBoard(double dimension, int size)
         {
             _size = size;
-            BackgroundColor = Color.FromHex("101010");
+            BackgroundColor = Color.FromHex("142F54");
             _spacing = dimension * .01;
             Padding = RowSpacing = ColumnSpacing = _spacing;
             WidthRequest = HeightRequest = dimension;
@@ -67,6 +67,8 @@ namespace DCCC.XF
                     cell.Value = tile.Value;
                     AnimateCell(cell, tile.PreviousPosition, tile.Position);
                 }
+                else
+                    cell.Value = tile.Value;
             }
 
             if (null != newTile && null != newCell)
@@ -82,12 +84,13 @@ namespace DCCC.XF
             var sourceCell = _cells[tile.MergedFrom.Previous.X, tile.MergedFrom.Previous.Y];
             sourceCell.Value = targetCell.Value = tile.Value / 2;
 
-            AnimateCell(sourceCell, tile.MergedFrom.Previous, tile.MergedFrom.Next);
-            sourceCell.Value = 0;
-            targetCell.Value = tile.Value;
+            AnimateCell(sourceCell, tile.MergedFrom.Previous, tile.MergedFrom.Next, () => {
+                sourceCell.Value = 0;
+                targetCell.Value = tile.Value;
+            });
         }
 
-        private void AnimateCell(GameCell cell, CellPosition origin, CellPosition target)
+        private void AnimateCell(GameCell cell, CellPosition origin, CellPosition target, Action finished = null)
         {
             Action<double> animationFunction = origin.X == target.X
                 ?
@@ -104,6 +107,7 @@ namespace DCCC.XF
              {
                  cell.TranslationX = 0;
                  cell.TranslationY = 0;
+                 finished?.Invoke();
              });
 
         }

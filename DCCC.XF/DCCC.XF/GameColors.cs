@@ -53,7 +53,7 @@ namespace DCCC.XF
 
         public static Color GetTileColor(int value)
         {
-            return value > 2 ? _smallColor : _bigColoer;
+            return value > 2 ? _bigColoer : _smallColor;
         }
 
         private static Color GetColor(Color[] colors, int value)
