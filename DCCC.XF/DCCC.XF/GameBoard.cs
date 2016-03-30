@@ -3,14 +3,15 @@ using Xamarin.Forms;
 
 namespace DCCC.XF
 {
-    public class GameGrid : Grid
+    public class GameBoard : Grid
     {
         private readonly int _size;
         private GameCell[,] _cells;
         private double _childDimension;
         private double _spacing;
+        private const uint _animationLength = 150;
 
-        public GameGrid(double dimension, int size)
+        public GameBoard(double dimension, int size)
         {
             _size = size;
             BackgroundColor = Color.FromHex("101010");
@@ -44,21 +45,46 @@ namespace DCCC.XF
             foreach (var cell in _cells)
                 cell.Value = 0;
 
+            GameTile newTile = null;
+            GameCell newCell = null;
+
             foreach (var tile in tiles)
             {
                 if (tile == null) continue;
 
                 var cell = _cells[tile.Position.X, tile.Position.Y];
-                cell.Value = tile.Value;
+
                 if (tile.Value == 0) return;
                 if (tile.IsNew)
-                    AnimateNew(cell);
-                else
-                    if (null != tile.MergedFrom)
-                    AnimateCell(cell, tile.MergedFrom.Previous, tile.MergedFrom.Next);
+                {
+                    newCell = cell;
+                    newTile = tile;
+                }
+                else if (null != tile.MergedFrom)
+                    AnimateMerge(cell, tile);
                 else if (!tile.Position.IsEqual(tile.PreviousPosition))
+                {
+                    cell.Value = tile.Value;
                     AnimateCell(cell, tile.PreviousPosition, tile.Position);
+                }
             }
+
+            if (null != newTile && null != newCell)
+            {
+                newCell.Value = newTile.Value;
+                AnimateNew(newCell);
+            }
+
+        }
+
+        private void AnimateMerge(GameCell targetCell, GameTile tile)
+        {
+            var sourceCell = _cells[tile.MergedFrom.Previous.X, tile.MergedFrom.Previous.Y];
+            sourceCell.Value = targetCell.Value = tile.Value / 2;
+
+            AnimateCell(sourceCell, tile.MergedFrom.Previous, tile.MergedFrom.Next);
+            sourceCell.Value = 0;
+            targetCell.Value = tile.Value;
         }
 
         private void AnimateCell(GameCell cell, CellPosition origin, CellPosition target)
@@ -74,11 +100,11 @@ namespace DCCC.XF
                 :
                 CalculateDistance(origin.X, target.X);
 
-            cell.Animate("tileMove", new Animation(animationFunction, start, 0), finished: (d, b) =>
-            {
-                cell.TranslationX = 0;
-                cell.TranslationY = 0;
-            });
+            cell.Animate("tileMove", new Animation(animationFunction, start, 0), length: _animationLength, finished: (d, b) =>
+             {
+                 cell.TranslationX = 0;
+                 cell.TranslationY = 0;
+             });
 
         }
 
@@ -91,7 +117,7 @@ namespace DCCC.XF
 
         private void AnimateNew(GameCell cell)
         {
-            cell.Animate("newTile", new Animation((double scale) => cell.Scale = scale, .1, 1), finished: (d, b) => cell.Scale = 1);
+            cell.Animate("newTile", new Animation((double scale) => cell.Scale = scale, .1, 1), length: _animationLength, finished: (d, b) => cell.Scale = 1);
         }
     }
 }

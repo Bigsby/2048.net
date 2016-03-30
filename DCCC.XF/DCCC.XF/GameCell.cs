@@ -12,7 +12,7 @@ namespace DCCC.XF
         public GameCell(double size)
         {
             _fontInitialSize = size / 2;
-            BackgroundColor = GameColors.GetTileColor(0);
+            BackgroundColor = GameColors.GetTileBackgroundColor(0);
 
             WidthRequest = HeightRequest = size;
             _label = new Label
@@ -45,13 +45,15 @@ namespace DCCC.XF
                 if (value == _value) return;
                 _value = value;
                 Text = _value == 0 ? string.Empty : _value.ToString();
-                SetBackground(_value);
+                SetColors(_value);
             }
         }
 
-        private void SetBackground(uint value)
+        private void SetColors(uint value)
         {
-            BackgroundColor = GameColors.GetTileColor(value == 0 ? 0 : (int)Math.Log(value, 2));
+            var index = value == 0 ? 0 : (int)Math.Log(value, 2);
+            BackgroundColor = GameColors.GetTileBackgroundColor(index);
+            _label.TextColor = GameColors.GetTileColor(index);
         }
 
         private double GetFontSize(string text)

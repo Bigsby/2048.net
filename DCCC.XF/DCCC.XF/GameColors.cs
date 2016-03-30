@@ -26,27 +26,45 @@ namespace DCCC.XF
     //> FFBA43
     internal static class GameColors
     {
-        private static Color[] _tileColors = new[] {
-            Color.FromHex("4A87E1"),
-            Color.FromHex("FFBA43"),
-            Color.FromHex("39629E"),
-            Color.FromHex("F0B248"),
-            Color.FromHex("2C4770"),
-            Color.FromHex("AAB039"),
-            Color.FromHex("1C2B42"),
-            Color.FromHex("644C25"),
+        private readonly static Color[] _tileBackgroundColors = new[] {
             Color.FromHex("090D13"),
-            Color.FromHex("1E170C")
+            Color.FromHex("eee4da"), //2
+            Color.FromHex("ede0c8"),
+            Color.FromHex("f2b179"), //8
+            Color.FromHex("f59563"),
+            Color.FromHex("f67c5f"), //32
+            Color.FromHex("f65e3b"),
+            Color.FromHex("edcf72"), //128
+            Color.FromHex("edcc61"),
+            Color.FromHex("edc850"), //512
+            Color.FromHex("edc53f"),
+            Color.FromHex("edc22e"), //2048
+            Color.FromHex("3c3a32")
         };
+
+        private readonly static Color _smallColor = Color.FromHex("000000");
+        private readonly static Color _bigColoer = Color.FromHex("f9f6f2");
+
+
+        public static Color GetTileBackgroundColor(int value)
+        {
+            return GetColor(_tileBackgroundColors, value);
+        }
 
         public static Color GetTileColor(int value)
         {
-            if (value < _tileColors.Length)
-                return _tileColors[value];
-            return _tileColors.Last();
+            return value > 2 ? _smallColor : _bigColoer;
         }
 
-        public static Color ScoreCaptionColor = Color.FromHex("3C3176");
-        public static Color ScoreColor = Color.FromHex("6751E4");
+        private static Color GetColor(Color[] colors, int value)
+        {
+            return value < colors.Length ?
+                colors[value]
+                :
+                colors.Last();
+        }
+
+        public static Color ScoreCaptionColor = Color.FromHex("2C4770");
+        public static Color ScoreColor = Color.FromHex("4A87E1");
     }
 }

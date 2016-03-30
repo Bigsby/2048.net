@@ -7,7 +7,7 @@ namespace DCCC.XF
     public class GamePage : ContentPage, IGamePage
     {
         private Grid _mainGrid;
-        private GameGrid _gameGrid;
+        private GameBoard _gameGrid;
         private GameHeader _gameHeader;
 
         public GamePage()
@@ -25,7 +25,7 @@ namespace DCCC.XF
 
                 _gameHeader = new GameHeader(CalculateHeaderFontSize());
 
-                _gameGrid = new GameGrid(CalculateGridSize(), 4);
+                _gameGrid = new GameBoard(CalculateGridSize(), 4);
                 _gameGrid.VerticalOptions = _gameGrid.HorizontalOptions = LayoutOptions.Center;
 
                 _mainGrid.RowDefinitions.Add(new RowDefinition { Height = GridLength.Auto });
