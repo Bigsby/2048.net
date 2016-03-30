@@ -1,6 +1,7 @@
 ﻿using DCCC.Interfaces;
 using System;
 using System.Collections.Generic;
+using System.Linq;
 
 namespace DCCC.XF
 {
@@ -18,9 +19,9 @@ namespace DCCC.XF
             _xfGamePage.ConfirmKeepGoing(handler);
         }
 
-        protected override void ShowOptions(IEnumerable<Interfaces.GameOption> options)
+        protected override Action ShowOptions(bool hideScore, string title, IEnumerable<GameOption> options)
         {
-            throw new NotImplementedException();
+            return _xfGamePage.ShowOptions(hideScore, new GameOptions(FontSize, title, options.ToArray()));
         }
     }
 }

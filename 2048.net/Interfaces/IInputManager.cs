@@ -16,6 +16,7 @@ namespace DCCC.Interfaces
     public interface IGamePage
     {
         void Update(IGameState gaemState);
+        double CalculatedFontSize { get; }
         event EventHandler Ready;
         event EventHandler<MoveEventArgs> Moved;
     }
@@ -43,9 +44,24 @@ namespace DCCC.Interfaces
             if (gameState.Won && !gameState.KeepPlaying)
                 _keepPlayingHandler();
 
+            
+
             if (gameState.Over)
-            { }
-                //ConfirmKeepGoing(result => { if (result) _keepPlayingHandler(); });
+            {
+                Action cleanup = null;
+                Action restart = () =>
+                {
+                    if (null != cleanup) cleanup();
+                    _restartHanlder();
+                };
+
+                var gameOverOptions = new GameOption[] {
+                    new GameOption("Restart", restart)
+                };
+
+                cleanup = ShowOptions(false, "Game Over!", gameOverOptions);
+            }
+            //ConfirmKeepGoing(result => { if (result) _keepPlayingHandler(); });
         }
 
         public void ContinueGame()
@@ -68,9 +84,11 @@ namespace DCCC.Interfaces
             _restartHanlder = callback;
         }
 
+        protected double FontSize { get { return _gamePage.CalculatedFontSize; } }
+
         protected abstract void ConfirmKeepGoing(Action<bool> handler);
 
-        protected abstract void ShowOptions(IEnumerable<GameOption> options);
+        protected abstract Action ShowOptions(bool hideScore, string title, IEnumerable<GameOption> options);
     }
 
     public class GameOption

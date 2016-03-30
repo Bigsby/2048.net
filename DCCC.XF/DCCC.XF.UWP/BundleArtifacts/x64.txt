@@ -1,2 +1,2 @@
-MainPackage=C:\Git\Bigsby\2048.net\DCCC.XF\DCCC.XF.UWP\bin\x64\Debug\DCCC.XF.UWP_1.0.5.0_x64_Debug.appx
-SymbolPackage=C:\Git\Bigsby\2048.net\DCCC.XF\DCCC.XF.UWP\AppPackages\DCCC.XF.UWP_1.0.5.0_Debug_Test\DCCC.XF.UWP_1.0.5.0_x64_Debug.appxsym
+MainPackage=C:\Git\Bigsby\2048.net\DCCC.XF\DCCC.XF.UWP\bin\x64\Debug\DCCC.XF.UWP_1.0.7.0_x64_Debug.appx
+SymbolPackage=C:\Git\Bigsby\2048.net\DCCC.XF\DCCC.XF.UWP\AppPackages\DCCC.XF.UWP_1.0.7.0_Debug_Test\DCCC.XF.UWP_1.0.7.0_x64_Debug.appxsym

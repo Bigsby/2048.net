@@ -9,7 +9,7 @@ namespace DCCC.XF
         private GameCell[,] _cells;
         private double _childDimension;
         private double _spacing;
-        private const uint _animationLength = 150;
+        private const uint _animationLength = 100;
 
         public GameBoard(double dimension, int size)
         {

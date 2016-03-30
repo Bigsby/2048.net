@@ -1,34 +1,30 @@
-﻿using System;
+﻿using DCCC.Interfaces;
 using Xamarin.Forms;
 
 namespace DCCC.XF
 {
     public class GameOptions : StackLayout
     {
-        public GameOptions(GameOption option, params GameOption[] options)
+        public GameOptions(double fontSize, string title, params GameOption[] options)
         {
-            Children.Add(BuildOptionButton(option));
-            foreach (var op in options)
-                Children.Add(BuildOptionButton(op));
-        }
+            Spacing = fontSize;
+            Children.Add(new Label
+            {
+                Text = title,
+                TextColor = Color.FromHex("5040A6"),
+                FontSize = fontSize,
+                HorizontalOptions = LayoutOptions.Center
+            });
 
-        private Button BuildOptionButton(GameOption option)
-        {
-            var result = new Button();
-            result.Text = option.Caption;
-            result.Clicked += (s, e) => option.Callback();
-            return result;
+            foreach (var option in options)
+                Children.Add(new Button
+                {
+                    FontSize = fontSize,
+                    Text = option.Caption,
+                    TextColor = Color.FromHex("4A87E1"),
+                    BackgroundColor = Color.FromHex("090D13"),
+                    Command = new Command(option.Callback)
+                });
         }
-    }
-
-    public class GameOption
-    {
-        public GameOption(string caption, Action callback)
-        {
-            Caption = caption;
-            Callback = callback;
-        }
-        public string Caption { get; private set; }
-        public Action Callback { get; private set; }
     }
 }

@@ -9,6 +9,8 @@ namespace DCCC.XF
         private Grid _mainGrid;
         private GameBoard _gameGrid;
         private GameHeader _gameHeader;
+        private double _fontSize;
+        private bool _isGameOn;
 
         public GamePage()
         {
@@ -23,7 +25,7 @@ namespace DCCC.XF
 
                 BackgroundColor = Color.Black;
 
-                _gameHeader = new GameHeader(CalculateHeaderFontSize());
+                _gameHeader = new GameHeader(_fontSize = CalculateHeaderFontSize());
 
                 _gameGrid = new GameBoard(CalculateGridSize(), 4);
                 _gameGrid.VerticalOptions = _gameGrid.HorizontalOptions = LayoutOptions.Center;
@@ -45,11 +47,30 @@ namespace DCCC.XF
             };
         }
 
+        public double CalculatedFontSize { get { return _fontSize; } }
         public event EventHandler<MoveEventArgs> Moved;
         public event EventHandler Ready;
 
+        internal Action ShowOptions(bool hideScore, GameOptions options)
+        {
+            _isGameOn = false;
+            if (hideScore)
+                _gameHeader.IsVisible = false;
+
+            _gameGrid.IsVisible = false;
+
+            options.VerticalOptions = LayoutOptions.Center;
+            Grid.SetRow(options, 1);
+            _mainGrid.Children.Add(options);
+
+
+            return () => _mainGrid.Children.Remove(options);
+        }
+
         public void Update(IGameState gameState)
         {
+            _isGameOn = true;
+            _gameGrid.IsVisible = true;
             _gameGrid.Update(gameState.Grid.Cells);
             _gameHeader.Update(gameState.Score, gameState.Score);
         }
@@ -120,7 +141,7 @@ namespace DCCC.XF
                 HorizontalOptions = LayoutOptions.Start
             };
 
-            kbInput.Unfocused += (s, e) => kbInput.Focus();
+            kbInput.Unfocused += (s, e) => { if (_isGameOn) kbInput.Focus(); };
             kbInput.TextChanged += (s, e) =>
             {
                 var t = e.NewTextValue.ToUpper();

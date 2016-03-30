@@ -1,9 +1,6 @@
 ﻿using System;
 using Windows.ApplicationModel;
 using Windows.ApplicationModel.Activation;
-using Windows.Foundation.Metadata;
-using Windows.UI;
-using Windows.UI.ViewManagement;
 using Windows.UI.Xaml;
 using Windows.UI.Xaml.Controls;
 using Windows.UI.Xaml.Navigation;
@@ -23,19 +20,7 @@ namespace DCCC.XF.UWP
         {
             InitializeComponent();
 
-            //if (ApiInformation.IsTypePresent("Windows.UI.ViewManagement.ApplicationView"))
-            //{
-            //    var titleBar = ApplicationView.GetForCurrentView().TitleBar;
-            //    if (titleBar != null)
-            //    {
-            //        titleBar.ButtonBackgroundColor = Colors.Transparent;
-            //        titleBar.ButtonForegroundColor = Colors.White;
-            //        titleBar.BackgroundColor = Colors.Transparent;
-            //        titleBar.ForegroundColor = Colors.White;
-            //    }
-            //}
-
-            this.Suspending += OnSuspending;
+            Suspending += OnSuspending;
         }
 
         /// <summary>
@@ -46,12 +31,12 @@ namespace DCCC.XF.UWP
         protected override void OnLaunched(LaunchActivatedEventArgs e)
         {
 
-#if DEBUG
-            if (System.Diagnostics.Debugger.IsAttached)
-            {
-                this.DebugSettings.EnableFrameRateCounter = true;
-            }
-#endif
+//#if DEBUG
+//            if (System.Diagnostics.Debugger.IsAttached)
+//            {
+//                this.DebugSettings.EnableFrameRateCounter = true;
+//            }
+//#endif
 
             Frame rootFrame = Window.Current.Content as Frame;
 
