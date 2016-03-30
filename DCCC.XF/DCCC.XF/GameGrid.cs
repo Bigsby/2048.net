@@ -54,13 +54,10 @@ namespace DCCC.XF
                 if (tile.IsNew)
                     AnimateNew(cell);
                 else
-                {
                     if (null != tile.MergedFrom)
-                        AnimateCell(cell, tile.MergedFrom.Previous.Position, tile.MergedFrom.Next.Position);
-
-                    if (!tile.Position.IsEqual(tile.PreviousPosition))
-                        AnimateCell(cell, tile.PreviousPosition, tile.Position);
-                }
+                    AnimateCell(cell, tile.MergedFrom.Previous, tile.MergedFrom.Next);
+                else if (!tile.Position.IsEqual(tile.PreviousPosition))
+                    AnimateCell(cell, tile.PreviousPosition, tile.Position);
             }
         }
 
@@ -77,7 +74,11 @@ namespace DCCC.XF
                 :
                 CalculateDistance(origin.X, target.X);
 
-            cell.Animate("tileMove", new Animation(animationFunction, start, 0));
+            cell.Animate("tileMove", new Animation(animationFunction, start, 0), finished: (d, b) =>
+            {
+                cell.TranslationX = 0;
+                cell.TranslationY = 0;
+            });
 
         }
 
@@ -85,12 +86,12 @@ namespace DCCC.XF
         {
             var difference = Math.Abs(target - origin);
             var distance = difference * _childDimension + ((difference + 1) * _spacing);
-            return target > origin ? distance : -distance;
+            return target > origin ? -distance : distance;
         }
 
         private void AnimateNew(GameCell cell)
         {
-            cell.Animate("newTile", new Animation((double scale) => cell.Scale = scale));
+            cell.Animate("newTile", new Animation((double scale) => cell.Scale = scale, .1, 1), finished: (d, b) => cell.Scale = 1);
         }
     }
 }

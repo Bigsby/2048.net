@@ -6,16 +6,16 @@ namespace DCCC.XF
 {
     public class XFInputManager : BaseInputManager, IInputManager
     {
-        private readonly GamePage _gamePage;
+        private readonly GamePage _xfGamePage;
         public XFInputManager(GamePage gamePage)
             : base(gamePage)
         {
-            _gamePage = gamePage;
+            _xfGamePage = gamePage;
         }
 
         protected override void ConfirmKeepGoing(Action<bool> handler)
         {
-            _gamePage.ConfirmKeepGoing(handler);
+            _xfGamePage.ConfirmKeepGoing(handler);
         }
 
         protected override void ShowOptions(IEnumerable<Interfaces.GameOption> options)

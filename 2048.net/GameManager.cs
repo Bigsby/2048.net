@@ -143,7 +143,7 @@ namespace DCCC
                         if (null != next && next.Value == tile.Value && (null == next.MergedFrom))
                         {
                             var merged = new GameTile(positions.Next, tile.Value * 2);
-                            merged.MergedFrom = new MergeTile(tile, next);
+                            merged.MergedFrom = new MergeTile(tile.Position, next.Position);
 
                             _grid.InsertTile(merged);
                             _grid.RemoveTile(tile);
@@ -195,7 +195,7 @@ namespace DCCC
                 {
                     tile.MergedFrom = null;
                     tile.SavePosition();
-                    tite.IsNew = false;
+                    tile.IsNew = false;
                 }
             });
         }

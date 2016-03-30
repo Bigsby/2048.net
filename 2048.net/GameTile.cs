@@ -35,13 +35,13 @@
 
     public class MergeTile
     {
-        public MergeTile(GameTile previous, GameTile next)
+        public MergeTile(CellPosition previous, CellPosition next)
         {
             Previous = previous;
             Next = next;
         }
-        public GameTile Previous { get; private set; }
-        public GameTile Next { get; private set; }
+        public CellPosition Previous { get; private set; }
+        public CellPosition Next { get; private set; }
 
         public override string ToString()
         {
