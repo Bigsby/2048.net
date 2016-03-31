@@ -8,7 +8,6 @@ Maybe, one day, to be published in all the stores there are.
 Feel free to suggest or contribute.
 
 ##Future features:
-* Store game state and scores locally
 * Add start menu with options:
   * Multiple grid sizes
   * Game modes:
