@@ -1,43 +1,47 @@
-﻿using System;
+﻿using System.Threading.Tasks;
 
 namespace DCCC.Interfaces
 {
     public interface ILocalStorageManager
     {
-        uint GetBestScore();
-        void SetBestScore(uint score);
-        IGameState GetGameState();
-        void SetGameState(IGameState gameState);
-        void ClearGameState();
-        void ClearAllData();
+        Task<uint> GetBestScore();
+        Task SetBestScore(uint score);
+        Task<IGameState> GetGameState();
+        Task SetGameState(IGameState gameState);
+        Task ClearGameState();
+        Task ClearAllData();
     }
 
     public class DefaultLocalStorageManager : ILocalStorageManager
     {
-        public void ClearAllData()
+        public Task ClearAllData()
         {
+            return Task.FromResult(0);
         }
 
-        public void ClearGameState()
+        public Task ClearGameState()
         {
+            return Task.FromResult(0);
         }
 
-        public uint GetBestScore()
+        public Task<uint> GetBestScore()
         {
-            return 0;
+            return Task.FromResult(0U);
         }
 
-        public IGameState GetGameState()
+        public Task<IGameState> GetGameState()
         {
-            return null;
+            return Task.FromResult((IGameState)null);
         }
 
-        public void SetBestScore(uint score)
+        public Task SetBestScore(uint score)
         {
+            return Task.FromResult(0);
         }
 
-        public void SetGameState(IGameState gameState)
+        public Task SetGameState(IGameState gameState)
         {
+            return Task.FromResult(0);
         }
     }
 }

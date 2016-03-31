@@ -1,11 +1,13 @@
-﻿using DCCC.Interfaces;
+﻿using DCCC.BaseImplementations;
+using DCCC.Interfaces;
+using DCCC.XF.GameControls;
 using System;
 using System.Collections.Generic;
 using System.Linq;
 
 namespace DCCC.XF
 {
-    public class XFInputManager : BaseInputManager, IInputManager
+    public class XFInputManager : BaseUIManager, IUIManager
     {
         private readonly GamePage _xfGamePage;
         public XFInputManager(GamePage gamePage)

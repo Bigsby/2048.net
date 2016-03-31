@@ -26,6 +26,8 @@ namespace DCCC.XF.Droid
 		
 		public static void UpdateIdValues()
 		{
+			global::PCLStorage.Resource.String.ApplicationName = global::DCCC.XF.Droid.Resource.String.ApplicationName;
+			global::PCLStorage.Resource.String.Hello = global::DCCC.XF.Droid.Resource.String.Hello;
 			global::Xamarin.Forms.Platform.Android.Resource.Attribute.actionBarSize = global::DCCC.XF.Droid.Resource.Attribute.actionBarSize;
 		}
 		
@@ -2455,6 +2457,12 @@ namespace DCCC.XF.Droid
 		
 		public partial class String
 		{
+			
+			// aapt resource value: 0x7f05001f
+			public const int ApplicationName = 2131034143;
+			
+			// aapt resource value: 0x7f05001e
+			public const int Hello = 2131034142;
 			
 			// aapt resource value: 0x7f05000b
 			public const int abc_action_bar_home_description = 2131034123;

@@ -1,13 +1,19 @@
-﻿using Xamarin.Forms;
+﻿using DCCC.Interfaces;
+using DCCC.XF.GameControls;
+using Xamarin.Forms;
 
 namespace DCCC.XF
 {
     public class App : Application
     {
-        GamePage _gamePage;
+        private readonly GamePage _gamePage;
+        private readonly GameApplication _app;
+
         public App()
         {
-            var app = new GameApplication(new XFInputManager(_gamePage = new GamePage()));
+            _app = new GameApplication(
+                new XFInputManager(_gamePage = new GamePage()),
+                new XFLocalStorageManager());
             MainPage = _gamePage;
         }
 
@@ -18,11 +24,12 @@ namespace DCCC.XF
 
         protected override void OnSleep()
         {
-            // Handle when your app sleeps
+            //_app.SaveState();
         }
 
         protected override void OnResume()
         {
+            _app.Resume();
             // Handle when your app resumes
         }
     }

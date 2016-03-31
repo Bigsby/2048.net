@@ -1,7 +1,7 @@
 ﻿using System;
 using Xamarin.Forms;
 
-namespace DCCC.XF
+namespace DCCC.XF.GameControls
 {
     public class GameBoard : Grid
     {
@@ -9,7 +9,9 @@ namespace DCCC.XF
         private GameCell[,] _cells;
         private double _childDimension;
         private double _spacing;
-        private const uint _animationLength = 100;
+        private const uint _moveAnimationLength = 50;
+        private const uint _newAnimationLength = 100;
+
 
         public GameBoard(double dimension, int size)
         {
@@ -119,12 +121,12 @@ namespace DCCC.XF
                 :
                 new Action<double>(translation => cell.TranslationX = translation);
 
-            var start = origin.X == target.X ?
+            var distance = origin.X == target.X ?
                 CalculateDistance(origin.Y, target.Y)
                 :
                 CalculateDistance(origin.X, target.X);
 
-            cell.Animate("tileMove", new Animation(animationFunction, start, 0), length: _animationLength, finished: (d, b) =>
+            cell.Animate("tileMove", new Animation(animationFunction, distance.Item1, 0), length: distance.Item2 * _moveAnimationLength, finished: (d, b) =>
              {
                  cell.TranslationX = 0;
                  cell.TranslationY = 0;
@@ -133,16 +135,16 @@ namespace DCCC.XF
 
         }
 
-        private double CalculateDistance(int origin, int target)
+        private Tuple<double, uint> CalculateDistance(int origin, int target)
         {
             var difference = Math.Abs(target - origin);
             var distance = difference * _childDimension + ((difference + 1) * _spacing);
-            return target > origin ? -distance : distance;
+            return Tuple.Create(target > origin ? -distance : distance, (uint)difference);
         }
 
         private void AnimateNew(GameCell cell)
         {
-            cell.Animate("newTile", new Animation((double scale) => cell.Scale = scale, .1, 1), length: _animationLength, finished: (d, b) => cell.Scale = 1);
+            cell.Animate("newTile", new Animation((double scale) => cell.Scale = scale, .1, 1), length: _newAnimationLength, finished: (d, b) => cell.Scale = 1);
         }
     }
 }

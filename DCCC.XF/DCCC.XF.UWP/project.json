@@ -1,6 +1,8 @@
 ﻿{
   "dependencies": {
     "Microsoft.NETCore.UniversalWindowsPlatform": "5.0.0",
+    "Newtonsoft.Json": "8.0.3",
+    "PCLStorage": "1.0.2",
     "Xamarin.Forms": "2.1.0.6521"
   },
   "frameworks": {

@@ -2,7 +2,7 @@
 using System;
 using Xamarin.Forms;
 
-namespace DCCC.XF
+namespace DCCC.XF.GameControls
 {
     public class GamePage : ContentPage, IGamePage
     {
@@ -72,7 +72,7 @@ namespace DCCC.XF
             _isGameOn = true;
             _gameGrid.IsVisible = true;
             _gameGrid.Update(gameState.Grid.Cells);
-            _gameHeader.Update(gameState.Score, gameState.Score);
+            _gameHeader.Update(gameState.BestScore, gameState.Score);
         }
 
         internal void ConfirmKeepGoing(Action<bool> resultHandler)

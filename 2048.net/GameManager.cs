@@ -1,12 +1,13 @@
 ﻿using DCCC.Interfaces;
 using System;
 using System.Collections.Generic;
+using System.Threading.Tasks;
 
 namespace DCCC
 {
     internal class GameManager : IGameState
     {
-        private IInputManager _inputManager;
+        private IUIManager _inputManager;
         private ILocalStorageManager _localStorageManager;
         private int _size;
         private int _startTiles = 2;
@@ -14,7 +15,7 @@ namespace DCCC
 
         private GameGrid _grid;
 
-        public GameManager(int size, IInputManager inputManager, ILocalStorageManager localStorageManager)
+        public GameManager(int size, IUIManager inputManager, ILocalStorageManager localStorageManager)
         {
             if (size < 4 || size > 8)
                 throw new ArgumentOutOfRangeException("size", "Size must be between 4 and 8");
@@ -33,6 +34,7 @@ namespace DCCC
 
         #region Properties
         public uint Score { get; set; }
+        public uint BestScore { get; set; }
         public bool Over { get; set; }
         public bool Won { get; set; }
         public bool KeepPlaying { get; set; }
@@ -311,9 +313,9 @@ namespace DCCC
 
         #region Setup
         // Set up the game
-        private void Setup()
+        public void Setup()
         {
-            var previousState = _localStorageManager.GetGameState();
+            var previousState = GetAsync(() => _localStorageManager.GetGameState());
 
             // Reload the game from a previous game if present
             if (null != previousState)
@@ -321,6 +323,7 @@ namespace DCCC
                 _grid = new GameGrid(previousState.Grid.Size,
                                             previousState.Grid); // Reload grid
 
+                BestScore = GetAsync(() => _localStorageManager.GetBestScore());
                 Score = previousState.Score;
                 Over = previousState.Over;
                 Won = previousState.Won;
@@ -341,6 +344,10 @@ namespace DCCC
             Actuate();
         }
 
+        private T GetAsync<T>(Func<Task<T>> func)
+        {
+            return Task.Run(async () => await func()).Result;
+        }
         // Set up the initial tiles to start the game with
         private void AddStartTiles()
         {
@@ -353,8 +360,12 @@ namespace DCCC
         // Sends the updated grid to the actuator
         private void Actuate()
         {
-            if (_localStorageManager.GetBestScore() < Score)
+            var savedScore = GetAsync(() => _localStorageManager.GetBestScore());
+            if (savedScore < Score)
+            {
                 _localStorageManager.SetBestScore(Score);
+                BestScore = Score;
+            }
 
             // Clear the state when the game is over (game over only, not win)
             if (Over)

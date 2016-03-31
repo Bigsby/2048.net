@@ -1,10 +1,10 @@
 ﻿using Xamarin.Forms;
 
-namespace DCCC.XF
+namespace DCCC.XF.GameControls
 {
     public class GameHeader : Grid
     {
-        //private static Label _highScoreLabel;
+        private readonly Label _highScoreLabel;
         private readonly Label _currentScoreLabel;
         private readonly double _fontSize;
 
@@ -13,30 +13,30 @@ namespace DCCC.XF
             _fontSize = fontSize;
             RowDefinitions.Add(new RowDefinition { Height = GridLength.Auto });
             RowDefinitions.Add(new RowDefinition());
-            //ColumnDefinitions.Add(new ColumnDefinition());
-            //ColumnDefinitions.Add(new ColumnDefinition());
+            ColumnDefinitions.Add(new ColumnDefinition());
+            ColumnDefinitions.Add(new ColumnDefinition());
 
-            //var highScoreCaption = GetCenteredLabel();
-            //highScoreCaption.Text = "Best";
-            //Children.Add(highScoreCaption);
+            var highScoreCaption = GetCenteredLabel();
+            highScoreCaption.Text = "Best";
+            Children.Add(highScoreCaption);
 
             var currentScoreCaption = GetCenteredLabel();
             currentScoreCaption.Text = "Score";
-            //SetColumn(currentScoreCaption, 1);
+            SetColumn(currentScoreCaption, 1);
             Children.Add(currentScoreCaption);
 
-            //_highScoreLabel = GetScoreLabel();
+            _highScoreLabel = GetScoreLabel();
             _currentScoreLabel = GetScoreLabel();
 
-            //SetColumn(_currentScoreLabel, 1);
+            SetColumn(_currentScoreLabel, 1);
 
-            //Children.Add(_highScoreLabel);
+            Children.Add(_highScoreLabel);
             Children.Add(_currentScoreLabel);
         }
 
         internal void Update(uint highScore, uint currentScore)
         {
-            //_highScoreLabel.Text = highScore.ToString();
+            _highScoreLabel.Text = highScore.ToString();
             _currentScoreLabel.Text = currentScore.ToString();
         }
 

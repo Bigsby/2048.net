@@ -1,7 +1,7 @@
 ﻿using System;
 using Xamarin.Forms;
 
-namespace DCCC.XF
+namespace DCCC.XF.GameControls
 {
     public class GameCell : Grid
     {

@@ -19,8 +19,6 @@ namespace DCCC.XF.UWP
         public App()
         {
             InitializeComponent();
-
-            Suspending += OnSuspending;
         }
 
         /// <summary>

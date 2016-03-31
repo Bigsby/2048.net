@@ -9,13 +9,28 @@ namespace DCCC
         private GameTile[,] _cells;
         private int _size;
 
-        public GameGrid(int size, GameGrid previousState = null)
+        private GameGrid(int size)
         {
             _size = size;
-            _cells = null == previousState ? BuildEmpty() : BuildFromPreviousState(previousState);
         }
 
-        public int Size { get; set; }
+        public GameGrid(int size, GameGrid previousState = null)
+            : this(size)
+        {
+            _cells = null == previousState ? BuildEmpty() : BuildFromPreviousState(previousState);
+
+            //for (int xIndex = 0; xIndex < size; xIndex++)
+            //    for (int yIndex = 0; yIndex < size; yIndex++)
+            //        _cells[xIndex, yIndex].UpdatePosition(new CellPosition(xIndex, yIndex));
+        }
+
+        public GameGrid(int size, GameTile[,] tiles)
+             : this(size)
+        {
+            _cells = tiles;
+        }
+
+        public int Size { get { return _size; } }
 
         // Check if there are any cells available
         public bool CellsAvailable()
@@ -102,7 +117,8 @@ namespace DCCC
                 for (var y = 0; y < _size; y++)
                 {
                     var tile = state.Cells[x, y];
-                    cells[x, y] = new GameTile(tile.Position, tile.Value);
+                    if (null != tile)
+                        cells[x, y] = new GameTile(new CellPosition(x, y), tile.Value);
                 }
 
             return cells;
