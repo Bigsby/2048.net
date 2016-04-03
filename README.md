@@ -22,3 +22,4 @@ Tested in the following platforms:
 * Windows 10 Mobile
 * Windows 10 IoT (Raspeberry Pi 3)
 * iOS
+* Android
