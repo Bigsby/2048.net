@@ -11,11 +11,16 @@ namespace DCCC.XF.GameControls
         private GameHeader _gameHeader;
         private double _fontSize;
         private bool _isGameOn;
+        private Size _currentSize;
 
         public GamePage()
-        {
+        {            
             Appearing += (s, e) =>
             {
+                _currentSize = Height == -1 ?
+                    App.ScreenSize :
+                    new Size(Width, Height);
+
                 _mainGrid = new Grid
                 {
                     BackgroundColor = Color.Transparent, // Necessary for PanGestureRecognizer to read pans outside content
@@ -84,17 +89,17 @@ namespace DCCC.XF.GameControls
         #region Private Methods
         private double CalculateGridSize()
         {
-            if (Width > Height)
-                return Height * .8;
+            if (_currentSize.Width > _currentSize.Height)
+                return _currentSize.Height * .8;
 
-            return Width * .9;
+            return _currentSize.Width * .9;
         }
 
         private double CalculateHeaderFontSize()
         {
-            if (Width > Height)
-                return Height * .075;
-            return Width * .075;
+            if (_currentSize.Width > _currentSize.Height)
+                return _currentSize.Height * .075;
+            return _currentSize.Width * .075;
         }
 
         private PanGestureRecognizer BuildSwipeRecognizer()

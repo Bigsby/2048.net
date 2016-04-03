@@ -12,6 +12,7 @@ namespace DCCC.XF.GameControls
         public GameCell(double size)
         {
             _fontInitialSize = size / 2;
+            InputTransparent = true;
             BackgroundColor = GameColors.GetTileBackgroundColor(0);
 
             //WidthRequest = HeightRequest = size;

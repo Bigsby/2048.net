@@ -9,12 +9,13 @@ namespace DCCC.XF.GameControls
         private GameCell[,] _cells;
         private double _childDimension;
         private double _spacing;
-        private const uint _moveAnimationLength = 50;
+        private const uint _moveAnimationLength = 75;
         private const uint _newAnimationLength = 100;
 
 
         public GameBoard(double dimension, int size)
         {
+            InputTransparent = true;
             _size = size;
         //    BackgroundColor = Color.FromHex("142F54");
             _spacing = dimension * .01;
@@ -59,7 +60,8 @@ namespace DCCC.XF.GameControls
             {
                 BackgroundColor = Color.FromHex("142F54"),
                 HeightRequest = size,
-                WidthRequest = size
+                WidthRequest = size,
+                InputTransparent = true
             };
         }
 

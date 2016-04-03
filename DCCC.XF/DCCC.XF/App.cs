@@ -32,5 +32,11 @@ namespace DCCC.XF
             _app.Resume();
             // Handle when your app resumes
         }
+
+        public static Size ScreenSize { get; private set; }
+        public static void SetSize(Size size)
+        {
+            ScreenSize = size;
+        }
     }
 }

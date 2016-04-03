@@ -1,10 +1,5 @@
-﻿using System;
-
-using Android.App;
+﻿using Android.App;
 using Android.Content.PM;
-using Android.Runtime;
-using Android.Views;
-using Android.Widget;
 using Android.OS;
 
 namespace DCCC.XF.Droid
@@ -15,9 +10,13 @@ namespace DCCC.XF.Droid
         protected override void OnCreate(Bundle bundle)
         {
             base.OnCreate(bundle);
-
             global::Xamarin.Forms.Forms.Init(this, bundle);
+            App.SetSize(new Xamarin.Forms.Size(
+                Application.ApplicationContext.Resources.DisplayMetrics.WidthPixels / Application.ApplicationContext.Resources.DisplayMetrics.ScaledDensity,
+                Application.ApplicationContext.Resources.DisplayMetrics.HeightPixels / Application.ApplicationContext.Resources.DisplayMetrics.ScaledDensity));
             LoadApplication(new App());
+
+
         }
     }
 }
